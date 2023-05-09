@@ -7,13 +7,18 @@
       <h3>introduction</h3>
       <%= @user.introduction %>
     </div>
-    <% if @user == current_user >
+  
     <p>
-      <%= link_to edit_user_url do %>
-        <i class="fas fa-user-cog"></i>
-      <% end %>
-    </p>
-    <%end%>
+      <% if @user == current_user %>
+        <%= link_to edit_user_path(current_user.id) do %>
+          <i class="fas fa-user-cog"></i>
+        <%end%>
+      <% else %>
+        <%= link_to user_path(current_user.id) do %>
+          <i class="fas fa-user-cog"></i>
+        <%end%>
+      <%end%>
+    </p>  
   
     <h2>New Book</h2>
     <div id="error">
@@ -40,7 +45,15 @@
     <% end %>
   </div>
   <div class="migi">
-    
+    <% @books.each do |book| %>
+      <span><%= image_tag book.user.get_profile_image(100,100) %></span>
+      <span>
+        <%= link_to book_path(book.id) do %>
+        <span><%= book.title %></span>
+        <%end%>
+      </span>
+      <span><%= book.body %></span>
+    <%end%>
   </div>
 </div>
 

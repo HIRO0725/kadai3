@@ -1,1 +1,32 @@
 <h2>index</h2>
+
+<div class="hidari">
+    <div>
+        <%= image_tag @user.get_profile_image(100,100) %>
+        <h3>name</h3>
+        <%= @user.name %>
+        <h3>introduction</h3>
+        <%= @user.introduction %>
+    </div>
+    
+        <p>
+            <% if @user == current_user %>
+                <%= link_to edit_user_path(current_user.id) do %>
+                    <i class="fas fa-user-cog"></i>
+                <%end%>
+            <% else %>
+                <%= link_to user_path(current_user.id) do %>
+                    <i class="fas fa-user-cog"></i>
+                <%end%>
+            <%end%>
+        </p>
+</div>
+<div class="migi">
+    <% @books.each do |book| %>
+        <span><%= image_tag book.user.get_profile_image(100,100) %></span>
+        <%= link_to book_path(book.id) do %>
+            <span><%= book.title %></span>
+        <%end%>
+        <span><%= book.body %></span>
+    <%end%>
+</div>
